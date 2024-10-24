@@ -31,3 +31,4 @@ target/
 src-gen/
 xtend-gen/
 icons/
+.settings/org.eclipse.m2e.core.prefs
