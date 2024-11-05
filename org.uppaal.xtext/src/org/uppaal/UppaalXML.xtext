@@ -101,7 +101,12 @@ Location returns templates::Location hidden(WS):
 	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
 	'>'
 	invariant=Expression
-	'</label' '>')?)
+	'</' 'label' '>')? &
+	('<label' 'kind' '=' '"exponentialrate"'
+	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
+	'>'
+	exponentialRate=Expression
+	'</' 'label' '>')?)
 	// Check whether it is an urgent or committed location.
 	locationTimeKind=LocationKind?
 	'</location' '>'));
