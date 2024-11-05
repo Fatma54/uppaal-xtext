@@ -28,6 +28,14 @@ NTA returns uppaal::NTA hidden(WS):
 		"<?xml version='1.0' encoding='utf-8'?>"
 	)
     DTD // Parse the document type definition.
+    (
+        // Accept both versions at the same time for the moment.
+        // As long, as no tag-semantics change ,this should be fine.
+        // This, however, assumes that a document of version flat-1_1 doesn't ever have any nodes which belong to the newer version
+        "<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd'>" |
+        "<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>" |
+        "<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.6//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd'>"
+    )
 	'<nta' '>'
 
 	// Imports are not used by UPPAAL currently (at least in 2004).
@@ -65,6 +73,8 @@ Template returns templates::Template hidden(WS):
 	('<declaration' '>' declarations=LocalDeclarations '</declaration' '>')?
 	// Get all the locations.
 	(location+=Location)+
+	//branchpoint
+	
 	// Reference the initial location.
 	'<init' 'ref' '=' init=[templates::Location|STRING] '/>'
 	// Get the transitions.
