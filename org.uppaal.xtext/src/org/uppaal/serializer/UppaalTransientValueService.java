@@ -20,11 +20,11 @@ public class UppaalTransientValueService extends DefaultTransientValueService {
 			}
 		}
 		
-		if (TemplatesPackage.Literals.LOCATION.isInstance(owner)) {
-			if (feature == TemplatesPackage.Literals.LOCATION__INCOMING_EDGES) {
+		if (TemplatesPackage.Literals.LOCATION.isInstance(owner) || TemplatesPackage.Literals.BRANCH_POINT.isInstance(owner)) {
+			if (feature == TemplatesPackage.Literals.ABSTRACT_LOCATION__INCOMING_EDGES) {
 				return true;
 			}
-			if (feature == TemplatesPackage.Literals.LOCATION__OUTGOING_EDGES) {
+			if (feature == TemplatesPackage.Literals.ABSTRACT_LOCATION__OUTGOING_EDGES) {
 				return true;
 			}
 		}
