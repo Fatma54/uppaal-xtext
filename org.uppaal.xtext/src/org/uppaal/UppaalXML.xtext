@@ -73,6 +73,7 @@ Template returns templates::Template hidden(WS):
 	// Get all the locations.
 	(location+=Location)+
 	//Get all branchpoints.
+	(branchPoint+=BranchPoint)*
 	// Reference the initial location.
 	'<init' 'ref' '=' init=[templates::Location|STRING] '/>'
 	// Get the transitions.
@@ -107,6 +108,12 @@ Location returns templates::Location hidden(WS):
 enum LocationKind returns templates::LocationKind:
 	URGENT='<urgent/>' | COMMITED='<committed/>';
 
+BranchPoint returns templates::BranchPoint hidden(WS):
+	'<branchpoint'
+	// Parse the optional attributes.
+	(('id' '=' id=STRING) & (position=Point)?)
+	('/>')
+;
 Edge returns templates::Edge hidden(WS):
 // Again skip the coordinates.
 	'<transition' (('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' colorCode=STRING)?) '>'
