@@ -151,6 +151,11 @@ Edge returns templates::Edge hidden(WS):
 	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
 	'>'
 	selection+=Selection (',' selection+=Selection)*
+	'</' 'label' '>')? &
+	('<label' 'kind' '=' '"probability"'
+	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
+	'>'
+	probabilityWeight=Expression
 	'</' 'label' '>')?)
 	// Get the nails/bendPoints.
 	('<nail' bendPoint+=Point '/>')*
@@ -886,13 +891,13 @@ LearningQuery returns queries::Query:
 // TOKENS
 //---------------------------------------------------------------------------------------------------------------------------------
 UPPAAL_TYPE_OR_IDENTIFIER:
-	UPPAAL_IDENTIFIER | 'int' | 'bool' | 'void' | 'chan' | 'clock';
+	UPPAAL_IDENTIFIER | 'int' | 'bool' | 'void' | 'chan' | 'clock' | 'double';
 
 UPPAAL_IDENTIFIER:
 	ID | XML_KEYWORDS;
 
 UPPAAL_KEYWORDS:
-	'chan' | 'clock' | 'bool' | 'int' | 'commit' | 'const' | 'urgent' | 'broadcast' | 'init' |
+	'chan' | 'clock' | 'bool' | 'int' | 'double' | 'commit' | 'const' | 'urgent' | 'broadcast' | 'init' |
 	'process' | 'state' | 'guard' | 'sync' | 'assign' | 'system' | 'trans' | 'deadlock' |
 	'and' | 'or' | 'not' | 'imply' | 'true' | 'false' | 'for' | 'forall' | 'exists' | 'while' |
 	'do' | 'if' | 'else' | 'return' | 'typedef' | 'struct' | 'rate' | 'before_update' |
@@ -928,14 +933,16 @@ XML_STRUCTURE_KEYWORDS:
 	"<!DOCTYPE" "nta" "PUBLIC" "'-//Uppaal" "Team//DTD" "Flat" "System" "1.1//EN'"
 	"'http://www.it.uu.se/research/group/darts/uppaal/flat-1_1.dtd>'" |
 	'<!DOCTYPE' 'nta' 'PUBLIC' '"-//Uppaal' 'Team//DTD' 'Flat' 'System' '1.1//EN"'
-	'"http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd>"';
+	'"http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd>"'|
+	'<!DOCTYPE' 'nta' 'PUBLIC' '"-//Uppaal' 'Team//DTD' 'Flat' 'System' '1.6//EN"'
+	'"http://www.it.uu.se/research/group/darts/uppaal/flat-1_6.dtd>"';
 
 XML_CLOSE_KEYWORD:
 	'</';
 
 XML_KEYWORDS:
 	'imports' | 'nta' | 'template' | 'name' | 'ref' |
-	'location' | 'id' | 'color' | 'transition' | 'source' |
+	'location' | 'branchpoint' | 'id' | 'color' | 'transition' | 'source' |
 	'target' | 'nail' | 'label' | 'kind' | 'declaration' |
 	'instantiation' | 'parameter' | 'committed' | 'x' | 'y' |
 	'queries' | 'query' | 'formula' | 'comment'// Keywords that collide with UPPAAL_KEYWORDS
@@ -944,7 +951,7 @@ XML_KEYWORDS:
 
 XML_ATTRIBUTE_KEYWORDS:
 	'"synchronisation"' | '"guard"' | '"assignment"' | '"invariant"' |
-	'"comments"';
+	'"exponentialrate"'|'"probability"'|'"comments"';
 
 // 'A' and 'E' are used in a different context as well (TemporalOperator),
 //     thus this is required to find ID values just using them...
