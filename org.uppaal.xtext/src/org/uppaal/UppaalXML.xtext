@@ -121,7 +121,7 @@ BranchPoint returns templates::BranchPoint hidden(WS):
 ;
 Edge returns templates::Edge hidden(WS):
 // Again skip the coordinates.
-	'<transition' (('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' colorCode=STRING)?) & ('controllable' '=' controllable=QUOTED_BOOLEAN)?  '>'
+	'<transition' (('id' '=' id=STRING) & ('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' colorCode=STRING)?) & ('controllable' '=' controllable=QUOTED_BOOLEAN)?  '>'
 	// Source...
 	'<source' 'ref' '=' source=[templates::Location|STRING] '/>'
 	// Target...
