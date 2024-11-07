@@ -116,7 +116,7 @@ Edge returns templates::Edge hidden(WS):
 // Again skip the coordinates.
 	'<transition' (('x' '=' STRING)? & ('y' '=' STRING)? & ('id' '=' id=STRING)? & ('color' '=' colorCode=STRING)?) & ('controllable' '=' controllable=QUOTED_BOOLEAN)?  '>'
 	// Source...
-	'<source' 'ref' '=' source=[templates::Location|STRING] '/>'
+	'<source' 'ref' '=' source=[templates::AbstractLocation|STRING] '/>'
 	// Target...
 	'<target' 'ref' '=' target=[templates::AbstractLocation|STRING] '/>'
 	// Parse the labels.
