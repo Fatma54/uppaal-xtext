@@ -3,6 +3,8 @@ package org.uppaal.scoping;
 import org.eclipse.xtext.naming.DefaultDeclarativeQualifiedNameProvider;
 import org.eclipse.xtext.naming.QualifiedName;
 import org.uppaal.core.NamedElement;
+import org.uppaal.templates.AbstractLocation;
+import org.uppaal.templates.BranchPoint;
 import org.uppaal.templates.Edge;
 import org.uppaal.templates.Location;
 import org.uppaal.types.Type;
@@ -19,6 +21,24 @@ public class UppaalQualifiedNameProvider extends DefaultDeclarativeQualifiedName
 	 * @return The id as a qualified name.
 	 */
 	QualifiedName qualifiedName(Location element) {
+		return QualifiedName.create(element.getId());
+	}
+	
+	/**
+	 * Uses the unique id for elements that do have such an id.
+	 * @param element The element to get the id from.
+	 * @return The id as a qualified name.
+	 */
+	QualifiedName qualifiedName(BranchPoint element) {
+		return QualifiedName.create(element.getId());
+	}
+	
+	/**
+	 * Uses the unique id for elements that do have such an id.
+	 * @param element The element to get the id from.
+	 * @return The id as a qualified name.
+	 */
+	QualifiedName qualifiedName(AbstractLocation element) {
 		return QualifiedName.create(element.getId());
 	}
 	

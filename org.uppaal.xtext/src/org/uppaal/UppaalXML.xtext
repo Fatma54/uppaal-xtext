@@ -122,11 +122,11 @@ BranchPoint returns templates::BranchPoint hidden(WS):
 ;
 Edge returns templates::Edge hidden(WS):
 // Again skip the coordinates.
-	'<transition' (('x' '=' STRING)? & ('y' '=' STRING)? & ('id' '=' id=STRING)? & ('color' '=' colorCode=STRING)?) '>'
+	'<transition' (('x' '=' STRING)? & ('y' '=' STRING)? & ('id' '=' id=STRING)? & ('color' '=' colorCode=STRING)?) & ('controllable' '=' controllable=QUOTED_BOOLEAN)?  '>'
 	// Source...
 	'<source' 'ref' '=' source=[templates::Location|STRING] '/>'
 	// Target...
-	'<target' 'ref' '=' target=[templates::Location|STRING] '/>'
+	'<target' 'ref' '=' target=[templates::AbstractLocation|STRING] '/>'
 	// Parse the labels.
 	(('<label' 'kind' '=' '"comments"'
 	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
@@ -636,7 +636,7 @@ LiteralExpression returns expressions::LiteralExpression:
 
 LiteralExpressionText returns ecore::EString:
 	'true' | 'false' | ('-'? INT);
-
+	
 // Function Calls
 FunctionCallExpression returns expressions::FunctionCallExpression:
 	function=[declarations::Function|UPPAAL_IDENTIFIER]
@@ -899,6 +899,13 @@ UPPAAL_STRUCTURE_KEYWORDS:
 // The actual value is calculated via a value conversion.
 QUOTED_INT returns ecore::EInt:
 	STRING;
+	
+// Represents a quoted boolean value of the form
+//   "true | false"
+// The actual value is calculated via a value conversion.
+QUOTED_BOOLEAN returns ecore::EBoolean:
+	STRING;
+
 
 // Matches any token but the XML close token '</'. This is needed for parsing the
 // contents of XML tags until the closing tag occurs.

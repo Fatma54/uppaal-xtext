@@ -40,6 +40,37 @@ public class UppaalValueConverter extends DefaultTerminalConverters {
 		};
 
 	}
+	
+	@ValueConverter(rule = "QUOTED_BOOLEAN")
+	public IValueConverter<Boolean> QUOTED_BOOLEAN() {
+		return new IValueConverter<Boolean>() {
+
+			public String toString(Boolean value) {
+				return "\"" + value + "\"";
+			}
+
+			public Boolean toValue(String string, INode node) throws ValueConverterException {
+
+				if (string == null || string.length() <= 2) {
+					throw new ValueConverterException("Only boolean values are allowed.", node, null);
+				}
+
+				// Trim quotes.
+				string = string.substring(1, string.length() - 1).trim();
+
+				// Check format.
+				if (!string.matches("true|false")) {
+					throw new ValueConverterException("Only boolean values are allowed.", node, null);
+				}
+				
+				return Boolean.valueOf(string);
+			}
+
+			
+
+		};
+
+	}
 
 	// This is required, due to a hack that aims to make comments like: A friend's
 	// house
