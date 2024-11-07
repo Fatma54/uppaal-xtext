@@ -40,6 +40,7 @@ import org.uppaal.expressions.QuantificationExpression;
 import org.uppaal.expressions.ScopedIdentifierExpression;
 import org.uppaal.statements.Block;
 import org.uppaal.statements.Iteration;
+import org.uppaal.templates.AbstractLocation;
 import org.uppaal.templates.Edge;
 import org.uppaal.templates.Template;
 import org.uppaal.templates.TemplatesPackage;
@@ -97,13 +98,20 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
     	}
     	
     	if (reference == TemplatesPackage.Literals.EDGE__SOURCE) {
+    		
     		Template template = (Template) context.eContainer();
-        	return Scopes.scopeFor(template.getLocation(), getIdentifyableName, IScope.NULLSCOPE);
+    		 List<AbstractLocation> combinedLocations = new LinkedList<>();
+    		    combinedLocations.addAll(template.getLocation());  
+    		    combinedLocations.addAll(template.getBranchPoint()); 
+        	return Scopes.scopeFor(combinedLocations, getIdentifyableName, IScope.NULLSCOPE);
     	}
     	
     	if (reference == TemplatesPackage.Literals.EDGE__TARGET) {
     		Template template = (Template) context.eContainer();
-        	return Scopes.scopeFor(template.getLocation(), getIdentifyableName, IScope.NULLSCOPE);
+    		List<AbstractLocation> combinedLocations = new LinkedList<>();
+		    combinedLocations.addAll(template.getLocation());  
+		    combinedLocations.addAll(template.getBranchPoint()); 
+    	return Scopes.scopeFor(combinedLocations, getIdentifyableName, IScope.NULLSCOPE);
     	}
     	
     	if (reference == ExpressionsPackage.Literals.IDENTIFIER_EXPRESSION__IDENTIFIER) {
