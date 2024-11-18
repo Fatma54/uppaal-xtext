@@ -120,36 +120,37 @@ Edge returns templates::Edge hidden(WS):
 	// Target...
 	'<target' 'ref' '=' target=[templates::AbstractLocation|STRING] '/>'
 	// Parse the labels.
-	(('<label' 'kind' '=' '"comments"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
-	'>'
-	comment=CommentLabel
-	'</label' '>')? &
-	('<label' 'kind' '=' '"synchronisation"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
-	'>'
-	synchronization=SynchronizationLabel
-	'</label' '>')? &
-	('<label' 'kind' '=' '"guard"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
-	'>'
-	guard=Expression
-	'</label' '>')? &
-	('<label' 'kind' '=' '"assignment"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
-	'>'
-	update+=Expression (',' update+=Expression)*
-	'</label' '>')? &
-	('<label' 'kind' '=' '"select"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
+	(('<label' 'kind' '=' '"select"'
+	(('x' '=' STRING)? ('y' '=' STRING)? ('color' '=' STRING)?)
 	'>'
 	selection+=Selection (',' selection+=Selection)*
-	'</label' '>')? &
+	'</label' '>')?
+	('<label' 'kind' '=' '"guard"'
+	(('x' '=' STRING)? ('y' '=' STRING)? ('color' '=' STRING)?)
+	'>'
+	guard=Expression
+	'</label' '>')?
+	('<label' 'kind' '=' '"synchronisation"'
+	(('x' '=' STRING)? ('y' '=' STRING)? ('color' '=' STRING)?)
+	'>'
+	synchronization=SynchronizationLabel
+	'</label' '>')? 
+	('<label' 'kind' '=' '"assignment"'
+	(('x' '=' STRING)? ('y' '=' STRING)?  ('color' '=' STRING)?)
+	'>'
+	update+=Expression (',' update+=Expression)*
+	'</label' '>')? 
+	 
 	('<label' 'kind' '=' '"probability"'
-	(('x' '=' STRING)? & ('y' '=' STRING)? & ('color' '=' STRING)?)
+	(('x' '=' STRING)? ('y' '=' STRING)? ('color' '=' STRING)?)
 	'>'
 	probabilityWeight=Expression
-	'</label' '>')?)
+	'</label' '>')?
+	('<label' 'kind' '=' '"comments"'
+	(('x' '=' STRING)? ('y' '=' STRING)? ('color' '=' STRING)?)
+	'>'
+	comment=CommentLabel
+	'</label' '>')? )
 	// Get the nails/bendPoints.
 	('<nail' bendPoint+=Point '/>')*
 	// Close the tag.
