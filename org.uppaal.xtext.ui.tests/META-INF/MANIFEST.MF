@@ -10,7 +10,6 @@ Require-Bundle: org.uppaal.xtext.ui,
  org.uppaal.model,
  org.eclipse.xtext.testing,
  org.eclipse.xtext.xbase.testing,
- org.eclipse.xtext.xbase.junit,
  org.eclipse.core.runtime,
  org.eclipse.xtext.ui.testing,
  org.eclipse.ui.workbench;resolution:=optional

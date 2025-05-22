@@ -36,7 +36,7 @@ import org.uppaal.expressions.ChannelPrefixExpression;
 import org.uppaal.expressions.DataPrefixExpression;
 import org.uppaal.expressions.Expression;
 import org.uppaal.expressions.ExpressionsPackage;
-import org.uppaal.expressions.FunctionCallExpression;
+import org.uppaal.expressions.CallExpression;
 import org.uppaal.expressions.IdentifierExpression;
 import org.uppaal.expressions.QuantificationExpression;
 import org.uppaal.expressions.ScopedIdentifierExpression;
@@ -222,8 +222,8 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 			}
 			
 			@Override
-			public Boolean handleCase(FunctionCallExpression functionExpression) {
-				return TemplatesPackage.Literals.TEMPLATE.isInstance(functionExpression.getFunction());
+			public Boolean handleCase(CallExpression functionExpression) {
+				return TemplatesPackage.Literals.TEMPLATE.isInstance(functionExpression.getCallee());
 			}
 			
 			@Override
@@ -263,9 +263,9 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 			identifierExpression = ((ScopedIdentifierExpression) scopeExpression).getIdentifier();
 		}
 		
-		if (scopeExpression instanceof FunctionCallExpression) {
-			final FunctionCallExpression functioncall = (FunctionCallExpression) scopeExpression;
-			return getFunctionCallScopeForTemplate((Template) functioncall.getFunction()); //XXX Function casted to Template?
+		if (scopeExpression instanceof CallExpression) {
+			final CallExpression functioncall = (CallExpression) scopeExpression;
+			return getFunctionCallScopeForTemplate((Template) functioncall.getCallee()); //XXX Function casted to Template?
 		}
 		
 		final NamedElement identifier = identifierExpression.getIdentifier();
