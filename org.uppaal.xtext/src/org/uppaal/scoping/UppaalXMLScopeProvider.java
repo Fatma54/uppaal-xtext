@@ -203,7 +203,7 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 	 * we can scope, i.e. if the "scope" is either an IdentifierExpression or a valid
 	 * ScopedIdentifierExpression and the identifier is an IdentifierExpression.
 	 * 
-	 * FunctionCallExpressions can be scoped as well, iff. a Template is called.
+	 * CallExpressions can be scoped as well, iff. a Template is called.
 	 * 
 	 * @param expr The ScopedIdentifierExpression to check.
 	 * 
@@ -222,8 +222,8 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 			}
 			
 			@Override
-			public Boolean handleCase(CallExpression functionExpression) {
-				return TemplatesPackage.Literals.TEMPLATE.isInstance(functionExpression.getCallee());
+			public Boolean handleCase(CallExpression callExpression) {
+				return TemplatesPackage.Literals.TEMPLATE.isInstance(callExpression.getCallee());
 			}
 			
 			@Override
@@ -264,8 +264,8 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 		}
 		
 		if (scopeExpression instanceof CallExpression) {
-			final CallExpression functioncall = (CallExpression) scopeExpression;
-			return getFunctionCallScopeForTemplate((Template) functioncall.getCallee()); //XXX Function casted to Template?
+			final CallExpression call = (CallExpression) scopeExpression;
+			return getCallScopeForTemplate((Template) call.getCallee()); //XXX Function casted to Template?
 		}
 		
 		final NamedElement identifier = identifierExpression.getIdentifier();
@@ -319,7 +319,7 @@ public class UppaalXMLScopeProvider extends AbstractUppaalXMLScopeProvider {
 		return scope;
 	}
 
-    private IScope getFunctionCallScopeForTemplate(Template template) {
+    private IScope getCallScopeForTemplate(Template template) {
     	return scopeFor(template.getLocation(), getRecursiveScope(template, ScopeMode.TYPED_ELEMENTS_AND_LOCATIONS));
 	}
 
