@@ -8,7 +8,7 @@ import org.uppaal.declarations.TypeDeclaration;
 import org.uppaal.declarations.TypedElementContainer;
 import org.uppaal.declarations.util.DeclarationsSwitch;
 import org.uppaal.expressions.DataPrefixExpression;
-import org.uppaal.expressions.CallExpression;
+import org.uppaal.expressions.FunctionCallExpression;
 import org.uppaal.expressions.IdentifierExpression;
 import org.uppaal.expressions.QuantificationExpression;
 import org.uppaal.expressions.ScopedIdentifierExpression;
@@ -99,7 +99,7 @@ public class UppaalScopingSwitch<T> extends ComposedSwitch<T> {
 		}
 		
 		@Override
-		public T caseCallExpression(CallExpression expression) {
+		public T caseFunctionCallExpression(FunctionCallExpression expression) {
 			return handleCase(expression);
 		}
 	};
@@ -172,7 +172,7 @@ public class UppaalScopingSwitch<T> extends ComposedSwitch<T> {
 		return defaultCase(expression);
 	}
 
-	public T handleCase(CallExpression expression) {
+	public T handleCase(FunctionCallExpression expression) {
 		return defaultCase(expression);
 	}
 	
